@@ -40,6 +40,7 @@ export class CapgoTrigger implements INodeType {
 		defaults: {
 			name: 'Capgo Trigger',
 		},
+		usableAsTool: true,
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main],
 		credentials: [

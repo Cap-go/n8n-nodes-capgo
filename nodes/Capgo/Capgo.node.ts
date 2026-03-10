@@ -50,10 +50,9 @@ const booleanField = (
 	displayName: string,
 	name: string,
 	displayOptions: { show: { operation: string[]; resource: string[] } },
-	defaultValue = false,
 	options: Partial<INodeProperties> = {},
 ): INodeProperties => ({
-	default: defaultValue,
+	default: false,
 	displayName,
 	displayOptions,
 	name,
@@ -147,7 +146,7 @@ export class Capgo implements INodeType {
 					{ name: 'Custom Request', value: 'customRequest' },
 					{ name: 'Device', value: 'device' },
 					{ name: 'Organization', value: 'organization' },
-					{ name: 'Statistics', value: 'statistics' },
+					{ name: 'Statistic', value: 'statistic' },
 					{ name: 'Webhook', value: 'webhook' },
 				],
 				default: 'app',
@@ -275,7 +274,7 @@ export class Capgo implements INodeType {
 				noDataExpression: true,
 				displayOptions: {
 					show: {
-						resource: ['statistics'],
+						resource: ['statistic'],
 					},
 				},
 				options: [
@@ -338,11 +337,11 @@ export class Capgo implements INodeType {
 					},
 				},
 				options: [
-					{ name: 'Send', value: 'send', action: 'Send a custom Capgo API request' },
+					{ name: 'Send', value: 'send', action: 'Send a custom request' },
 				],
 				default: 'send',
 			},
-			stringField('App ID', 'appId', show(['app', 'bundle', 'build', 'channel', 'device', 'statistics'], ['create', 'delete', 'get', 'getBundleUsage', 'getLogs', 'getStatus', 'getAppStats', 'list', 'requestBuild', 'setChannel', 'setChannelOverride', 'start', 'update', 'updateMetadata']), {
+			stringField('App ID', 'appId', show(['app', 'bundle', 'build', 'channel', 'device', 'statistic'], ['create', 'delete', 'get', 'getBundleUsage', 'getLogs', 'getStatus', 'getAppStats', 'list', 'requestBuild', 'setChannel', 'setChannelOverride', 'start', 'update', 'updateMetadata']), {
 				description: 'Reverse-domain app identifier, for example com.example.app',
 			}),
 			stringField('Organization ID', 'orgId', show(['app', 'organization', 'webhook'], ['create', 'delete', 'get', 'getAuditLogs', 'inviteMember', 'list', 'listDeliveries', 'listMembers', 'removeMember', 'retryDelivery', 'test', 'update']), {
@@ -374,7 +373,7 @@ export class Capgo implements INodeType {
 				description: 'Bundle version name such as 1.0.0',
 				required: false,
 			}),
-			booleanField('Public', 'public', show('channel', ['create']), false),
+			booleanField('Public', 'public', show('channel', ['create'])),
 			{
 				displayName: 'Disable Auto Update',
 				name: 'disableAutoUpdate',
@@ -384,14 +383,14 @@ export class Capgo implements INodeType {
 				default: 'none',
 				description: 'Block updates when a version difference matches this level',
 			},
-			booleanField('Disable Auto Update Under Native', 'disableAutoUpdateUnderNative', show('channel', ['create']), false),
-			booleanField('Allow Device Self Set', 'allowDeviceSelfSet', show('channel', ['create']), false),
-			booleanField('Allow Emulator', 'allowEmulator', show('channel', ['create']), false),
-			booleanField('Allow Device', 'allowDevice', show('channel', ['create']), false),
-			booleanField('Allow Dev', 'allowDev', show('channel', ['create']), false),
-			booleanField('Allow Prod', 'allowProd', show('channel', ['create']), false),
-			booleanField('iOS', 'ios', show('channel', ['create']), false),
-			booleanField('Android', 'android', show('channel', ['create']), false),
+			booleanField('Disable Auto Update Under Native', 'disableAutoUpdateUnderNative', show('channel', ['create'])),
+			booleanField('Allow Device Self Set', 'allowDeviceSelfSet', show('channel', ['create'])),
+			booleanField('Allow Emulator', 'allowEmulator', show('channel', ['create'])),
+			booleanField('Allow Device', 'allowDevice', show('channel', ['create'])),
+			booleanField('Allow Dev', 'allowDev', show('channel', ['create'])),
+			booleanField('Allow Prod', 'allowProd', show('channel', ['create'])),
+			booleanField('iOS', 'ios', show('channel', ['create'])),
+			booleanField('Android', 'android', show('channel', ['create'])),
 			stringField('External URL', 'externalUrl', show('bundle', ['create']), {
 				description: 'HTTPS URL of the ZIP bundle',
 			}),
@@ -419,13 +418,12 @@ export class Capgo implements INodeType {
 				type: 'string',
 				displayOptions: show('bundle', ['updateMetadata']),
 				default: '',
-				required: false,
 				typeOptions: {
 					rows: 4,
 				},
 			},
 			stringField('Device ID', 'deviceId', show('device', ['deleteOverride', 'get', 'setChannelOverride'])),
-			booleanField('Custom ID Mode', 'customIdMode', show('device', ['get', 'list']), false),
+			booleanField('Custom ID Mode', 'customIdMode', show('device', ['get', 'list'])),
 			stringField('Cursor', 'cursor', show('device', ['list']), {
 				description: 'Pagination cursor from the previous response',
 				required: false,
@@ -489,23 +487,23 @@ export class Capgo implements INodeType {
 				description: 'Comma-separated list of organization IDs',
 				required: false,
 			}),
-			booleanField('Hashed Key', 'hashed', show('apiKey', ['create']), false),
+			booleanField('Hashed Key', 'hashed', show('apiKey', ['create'])),
 			stringField('Expiration Timestamp', 'expiresAt', show('apiKey', ['create', 'update']), {
 				description: 'ISO timestamp or empty to leave unchanged',
 				placeholder: '2026-12-31T23:59:59.000Z',
 				required: false,
 			}),
-			booleanField('Regenerate Key', 'regenerate', show('apiKey', ['update']), false),
-			stringField('From', 'from', show('statistics', ['getAppStats', 'getBundleUsage', 'getOrgStats', 'getUserStats']), {
+			booleanField('Regenerate Key', 'regenerate', show('apiKey', ['update'])),
+			stringField('From', 'from', show('statistic', ['getAppStats', 'getBundleUsage', 'getOrgStats', 'getUserStats']), {
 				description: 'ISO date or datetime',
 				placeholder: '2026-01-01T00:00:00.000Z',
 			}),
-			stringField('To', 'to', show('statistics', ['getAppStats', 'getBundleUsage', 'getOrgStats', 'getUserStats']), {
+			stringField('To', 'to', show('statistic', ['getAppStats', 'getBundleUsage', 'getOrgStats', 'getUserStats']), {
 				description: 'ISO date or datetime',
 				placeholder: '2026-01-31T23:59:59.000Z',
 			}),
-			booleanField('Breakdown', 'breakdown', show('statistics', ['getOrgStats']), false),
-			booleanField('No Accumulate', 'noAccumulate', show('statistics', ['getAppStats', 'getOrgStats', 'getUserStats']), false),
+			booleanField('Breakdown', 'breakdown', show('statistic', ['getOrgStats'])),
+			booleanField('No Accumulate', 'noAccumulate', show('statistic', ['getAppStats', 'getOrgStats', 'getUserStats'])),
 			{
 				displayName: 'Platform',
 				name: 'platform',
@@ -555,7 +553,7 @@ export class Capgo implements INodeType {
 			stringField('Webhook URL', 'url', show('webhook', ['create', 'update']), {
 				required: false,
 			}),
-			booleanField('Enabled', 'enabledCreate', show('webhook', ['create']), true),
+			booleanField('Enabled', 'enabledCreate', show('webhook', ['create']), { default: true }),
 			keepTrueFalseField('Enabled', 'enabledUpdate', show('webhook', ['update'])),
 			stringField('Delivery ID', 'deliveryId', show('webhook', ['retryDelivery'])),
 			{
@@ -917,7 +915,7 @@ export class Capgo implements INodeType {
 						}
 						break;
 					}
-					case 'statistics': {
+					case 'statistic': {
 						const from = this.getNodeParameter('from', i) as string;
 						const to = this.getNodeParameter('to', i) as string;
 						qs = { from, to };
