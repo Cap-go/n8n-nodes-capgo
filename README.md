@@ -1,73 +1,67 @@
 # n8n-nodes-capgo
 
-This is an n8n community node. It lets you use GitHub Issues in your n8n workflows.
+Capgo community nodes for n8n.
 
-[n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/sustainable-use-license/) workflow automation platform.
+This package adds:
 
-[Installation](#installation)
-[Operations](#operations)
-[Credentials](#credentials)
-[Compatibility](#compatibility)
-[Usage](#usage)
-[Resources](#resources)
+- `Capgo`: manage Capgo resources from n8n workflows
+- `Capgo Trigger`: receive Capgo webhook events in n8n with signature verification
 
 ## Installation
 
-Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+Follow the [n8n community nodes installation guide](https://docs.n8n.io/integrations/community-nodes/installation/).
 
-## Operations
-
-- Issues
-    - Get an issue
-    - Get many issues in a repository
-    - Create a new issue
-- Issue Comments
-    - Get many issue comments
+The published package name is `n8n-nodes-capgo`.
 
 ## Credentials
 
-You can use either access token or OAuth2 to use this node.
+Use the `Capgo API` credential with:
 
-### Access token
+1. Your Capgo base URL. The default is `https://api.capgo.app`
+2. A Capgo API key with access to the resources you want to automate
 
-1. Open your GitHub profile [Settings](https://github.com/settings/profile).
-2. In the left navigation, select [Developer settings](https://github.com/settings/apps).
-3. In the left navigation, under Personal access tokens, select Tokens (classic).
-4. Select Generate new token > Generate new token (classic).
-5. Enter a descriptive name for your token in the Note field, like n8n integration.
-6. Select the Expiration you'd like for the token, or select No expiration.
-7. Select Scopes for your token. For most of the n8n GitHub nodes, add the `repo` scope.
-    - A token without assigned scopes can only access public information.
-8. Select Generate token.
-9. Copy the token.
+## Supported resources
 
-Refer to [Creating a personal access token (classic)](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) for more information. Refer to Scopes for OAuth apps for more information on GitHub scopes.
+The `Capgo` action node supports:
 
-![Generated Access token in GitHub](https://docs.github.com/assets/cb-17251/mw-1440/images/help/settings/personal-access-tokens.webp)
+- Apps
+- Channels
+- Bundles
+- Devices
+- Organizations
+- API keys
+- Statistics
+- Builds
+- Webhooks
+- Custom requests for unsupported endpoints
 
-### OAuth2
+## Supported operations
 
-If you're self-hosting n8n, create a new GitHub [OAuth app](https://docs.github.com/en/apps/oauth-apps):
+Examples of the available operations include:
 
-1. Open your GitHub profile [Settings](https://github.com/settings/profile).
-2. In the left navigation, select [Developer settings](https://github.com/settings/apps).
-3. In the left navigation, select OAuth apps.
-4. Select New OAuth App.
-    - If you haven't created an app before, you may see Register a new application instead. Select it.
-5. Enter an Application name, like n8n integration.
-6. Enter the Homepage URL for your app's website.
-7. If you'd like, add the optional Application description, which GitHub displays to end-users.
-8. From n8n, copy the OAuth Redirect URL and paste it into the GitHub Authorization callback URL.
-9. Select Register application.
-10. Copy the Client ID and Client Secret this generates and add them to your n8n credential.
+- Create, get, list, update, and delete apps
+- Create, get, list, and delete channels
+- Create, list, delete, assign, and update bundle metadata
+- Get devices and manage channel overrides
+- Create organizations, invite members, list members, and fetch audit logs
+- Create and manage API keys
+- Fetch app, organization, bundle, and user statistics
+- Request, start, cancel, inspect, and fetch logs for native builds
+- Create, test, update, retry, and inspect webhooks and webhook deliveries
 
-Refer to the [GitHub Authorizing OAuth apps documentation](https://docs.github.com/en/apps/oauth-apps/using-oauth-apps/authorizing-oauth-apps) for more information on the authorization process.
+## Trigger node
+
+`Capgo Trigger` can register a webhook in Capgo when the workflow is activated.
+It stores the returned webhook secret in n8n static data and verifies the
+`X-Capgo-Signature` header before passing the payload to the workflow.
 
 ## Compatibility
 
-Compatible with n8n@1.60.0 or later
+This package is built against the n8n community nodes API v1 and is intended for
+current n8n 1.x releases.
 
 ## Resources
 
-* [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
-* [GitHub API docs](https://docs.github.com/en/rest/issues)
+- [Capgo](https://capgo.app)
+- [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
+- [Repository](https://github.com/Cap-go/n8n-nodes-capgo)
