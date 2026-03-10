@@ -1,6 +1,7 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
 
 import type {
+	GenericValue,
 	IDataObject,
 	IExecuteFunctions,
 	IHookFunctions,
@@ -101,8 +102,17 @@ function toDataObject(value: unknown): IDataObject {
 		return { value };
 	}
 
+	if (
+		value === null ||
+		typeof value === 'string' ||
+		typeof value === 'number' ||
+		typeof value === 'boolean'
+	) {
+		return { value };
+	}
+
 	return {
-		value,
+		value: String(value) as GenericValue,
 	};
 }
 

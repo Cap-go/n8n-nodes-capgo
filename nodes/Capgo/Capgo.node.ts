@@ -5,6 +5,7 @@ import {
 	type IDataObject,
 	type IExecuteFunctions,
 	type IHttpRequestMethods,
+	type INodeExecutionData,
 	type INodeProperties,
 	type INodeType,
 	type INodeTypeDescription,
