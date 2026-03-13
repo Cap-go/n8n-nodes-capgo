@@ -1,5 +1,8 @@
 name: Bump version
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   push:
     branches:
@@ -26,6 +29,11 @@ jobs:
           fetch-depth: 0
           filter: blob:none
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
 
       - uses: oven-sh/setup-bun@v2
 
