@@ -3,7 +3,7 @@
     "version": "0.1.1",
     "description": "Capgo community nodes for n8n",
     "license": "MIT",
-    "homepage": "",
+    "homepage": "https://github.com/Cap-go/n8n-nodes-capgo",
     "keywords": [
         "n8n-community-node-package",
         "capgo",
@@ -18,6 +18,12 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/Cap-go/n8n-nodes-capgo.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Cap-go/n8n-nodes-capgo/issues"
+    },
+    "publishConfig": {
+        "access": "public"
     },
     "scripts": {
         "build": "n8n-node build",
