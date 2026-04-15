@@ -12,6 +12,8 @@ This package adds:
 Follow the [n8n community nodes installation guide](https://docs.n8n.io/integrations/community-nodes/installation/).
 
 The published package name is `n8n-nodes-capgo`.
+It is intended to be published from GitHub Actions with npm provenance so it
+meets n8n's verified community node requirements.
 
 ## Credentials
 
