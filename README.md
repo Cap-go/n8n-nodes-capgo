@@ -67,3 +67,5 @@ current n8n 1.x releases.
 - [Capgo](https://capgo.app)
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
 - [Repository](https://github.com/Cap-go/n8n-nodes-capgo)
+
+Releases are versioned on `main` and published from GitHub Actions with npm provenance.
